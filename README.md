@@ -1,6 +1,6 @@
 # Microsoft JSON Web Token Extractor
 
-I have created a small C# project to extract JSON Web Tokens from memory without dumping anything on disk to avoid detection by Endpoint Detection and Response. For more information about this attack, see the links below.
+I have created a small C# project to extract JSON Web Tokens from memory without dumping anything on disk to avoid detection by Endpoint Detection and Response.
 
 For more information about extracting JSON Web Tokens, please check my blog post:  
 https://thalpius.com <- Direct link coming soon!

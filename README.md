@@ -5,3 +5,5 @@ A JSON Web Token is created in memory when connecting to Azure using PowerShell 
 I wondered if I could extract the JSON Web Token from memory without dumping anything on disk to avoid a trigger from any Endpoint Detection and Response solution.
 
 The result is a C# tool to extract all JSON Web Tokens found in memory used by PowerShell, including those found on disk.
+
+![Alt text](/Screenshots/MicrosoftJSONWebTokenExtractor01.jpg?raw=true "Getting JSON Web Tokens from PowerShell memory")

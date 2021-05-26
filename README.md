@@ -9,7 +9,7 @@ https://thalpius.com <- Direct link coming soon!
 
 # Usage Microsoft JSON Web Token Extractor
 
-Search for JSON Web Tokens in PowerShell process:  
+Search for JSON Web Tokens in memory for the PowerShell process:  
 ```Batchfile
 MicrosoftJSONWebTokenExtractor.exe /process:powershell
 ```

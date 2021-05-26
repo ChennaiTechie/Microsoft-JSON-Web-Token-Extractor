@@ -111,7 +111,7 @@ namespace MicrosoftJSONWebTokenExtractor
 
                         foreach (var item in positions)
                         {
-                            Console.WriteLine("JSON Web Token found at memory address {0} for process {1}", item, processName);
+                            Console.WriteLine("JSON Web Token found at memory address {0} for process: {1}", item, processName);
                             byte[] source = buffer;
                             byte[] byteSection = new byte[4096];
                             Buffer.BlockCopy(source, item, byteSection, 0, byteSection.Length);

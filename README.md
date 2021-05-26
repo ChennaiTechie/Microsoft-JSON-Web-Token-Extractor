@@ -1,4 +1,4 @@
-# Microsoft-JSON-Web-Token-Extractor
+# Microsoft JSON Web Token Extractor
 
 A JSON Web Token is created in memory when connecting to Azure using PowerShell using the following command:
 

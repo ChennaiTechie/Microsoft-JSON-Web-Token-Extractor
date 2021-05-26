@@ -2,7 +2,7 @@
 
 I have created a small C# project to extract JSON Web Tokens from memory without dumping anything on disk to avoid detection by Endpoint Detection and Response. For more information about this attack, see the links below.
 
-For more information about Azure AD SSO, please check my blog post:  
+For more information about extracting JSON Web Tokens, please check my blog post:  
 https://thalpius.com <- Direct link coming soon!
 
 **Note**: I started the project for educational purposes only and I am by far not a programmer so do not expect clean code.

@@ -78,6 +78,7 @@ namespace MicrosoftJSONWebTokenExtractor
         static int ExtractJSONWebTokens(string processName)
         {
             Console.WriteLine("Trying to extract JSON Web Tokens from process: {0}", processName);
+            Console.WriteLine("");
             SYSTEM_INFO sysInfo = new();
             GetNativeSystemInfo(ref sysInfo);
 

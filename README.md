@@ -6,4 +6,4 @@ I wondered if I could extract the JSON Web Token from memory without dumping any
 
 The result is a C# tool to extract all JSON Web Tokens found in memory used by PowerShell, including those found on disk.
 
-![Alt text](/Screenshots/MicrosoftJSONWebToken01.jpg?raw=true "Getting JSON Web Tokens from PowerShell memory")
+![Alt text](/Screenshots/MicrosoftJSONWebTokenExtractor01.jpg?raw=true "Getting JSON Web Tokens from PowerShell memory")

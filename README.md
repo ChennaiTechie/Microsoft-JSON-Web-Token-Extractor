@@ -18,4 +18,4 @@ MicrosoftJSONWebTokenExtractor.exe /process:powershell
 
 Getting JSON Web Tokens from PowerShell:  
 
-![Alt text](/Screenshots/MicrosoftJSONWebTokenExtractor01.jpg?raw=true "Getting JSON Web Tokens from PowerShell memory")
+![Alt text](/Screenshots/MicrosoftJSONWebTokenExtractor01.jpeg?raw=true "Getting JSON Web Tokens from PowerShell memory")

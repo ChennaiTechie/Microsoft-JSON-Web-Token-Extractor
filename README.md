@@ -5,7 +5,7 @@ I have created a small C# project to extract JSON Web Tokens from memory without
 For more information about extracting JSON Web Tokens, please check my blog post:  
 https://thalpius.com <- Direct link coming soon!
 
-**Note**: I started the project for educational purposes only and I am by far not a programmer so do not expect clean code.
+**Note**: I started the project for educational purposes only and I am not by far a programmer so do not expect clean code.
 
 # Usage Microsoft JSON Web Token Extractor
 

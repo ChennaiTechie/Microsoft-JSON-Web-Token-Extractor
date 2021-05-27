@@ -87,7 +87,12 @@ namespace MicrosoftJSONWebTokenExtractor
             long proc_min_address_l = (long)proc_min_address;
             long proc_max_address_l = (long)proc_max_address;
 
+            if (Process.GetProcessesByName(processName).Length > 0) {
+                Console.WriteLine("Are you sure the process {0} is running?", processName);
+                return 1;
+            }
             Process process = Process.GetProcessesByName(processName)[0];
+            
 
             IntPtr processHandle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_WM_READ, false, process.Id);
 

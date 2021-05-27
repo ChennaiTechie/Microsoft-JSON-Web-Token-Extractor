@@ -2,8 +2,7 @@
 
 I have created a small C# project to extract JSON Web Tokens from memory without dumping anything on disk to avoid detection by Endpoint Detection and Response.
 
-For more information about extracting JSON Web Tokens, please check my blog post:  
-
+For more information about extracting JSON Web Tokens, please check my blog post:
 https://thalpius.com/2021/05/27/microsoft-json-web-token-extractor/
 
 **Note**: I started this project for educational purposes only and I am not by far a programmer so do not expect clean code.

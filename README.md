@@ -14,7 +14,7 @@ Search for JSON Web Tokens in memory for the PowerShell process:
 MicrosoftJSONWebTokenExtractor.exe /process:powershell
 ```
 
-# Screenshots
+# Screenshot
 
 Getting JSON Web Tokens from PowerShell:  
 

